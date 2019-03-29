@@ -3,7 +3,7 @@
 
 Dockerfile which wraps [w3c/link-checker](https://github.com/w3c/link-checker) project into a docker image.
 
-## Build
+## Build Container
 
 ```bash
 docker build -t checklink:latest .
