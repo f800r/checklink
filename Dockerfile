@@ -20,10 +20,13 @@ RUN apt-get update \
       make \
       git \
       build-essential \
+      zlib1g-dev \
       libssl-dev \
       libcrypt-ssleay-perl
 
 RUN set -x \
+  && cpanm --force Net::SSLeay::Handle \
+  && cpanm IO::Socket::SSL \
   && cpanm LWP::Protocol::https \
   && mkdir -p /usr/src \
   && cd /usr/src \
