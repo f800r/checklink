@@ -22,7 +22,8 @@ RUN apt-get update \
       build-essential \
       zlib1g-dev \
       libssl-dev \
-      libcrypt-ssleay-perl
+      libcrypt-ssleay-perl \
+      ca-certificates
 
 RUN set -x \
   && cpanm --force Net::SSLeay::Handle \
@@ -38,5 +39,8 @@ RUN set -x \
   && make test \
   && make install 
 
+COPY ca-custom.pem /ca-custom.pem
+RUN cat /ca-custom.pem >>/etc/ssl/certs/ca-certificates.crt
+ENV PERL_LWP_SSL_CA_FILE /etc/ssl/certs/ca-certificates.crt
 ENTRYPOINT ["/usr/local/bin/checklink"]
 CMD ["-h"]
